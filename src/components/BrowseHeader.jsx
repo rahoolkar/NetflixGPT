@@ -4,6 +4,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserToken } from "../utils/userTokenSlice";
+import { NETFLIX_LOGO_IMG, USER_ICON } from "../utils/constants";
 
 function BrowseHeader() {
   const [isExpand, setIsExpand] = useState(false);
@@ -11,7 +12,7 @@ function BrowseHeader() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => {
-    return store?.userToken?.token?.displayName;
+    return store?.userToken?.token.displayName;
   });
 
   function handleIconClick() {
@@ -31,17 +32,13 @@ function BrowseHeader() {
 
   return (
     <div className="absolute w-full bg-gradient-to-b from-black z-20 flex justify-between">
-      <img
-        className="h-24 mx-20"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="netflix-logo"
-      />
+      <img className="h-24 mx-20" src={NETFLIX_LOGO_IMG} alt="netflix-logo" />
       <div className="flex flex-col p-4 mr-16">
         <img
           onClick={handleIconClick}
           className="rounded p-1 mx-auto h-17 w-17 hover:cursor-pointer"
-          src="https://pbs.twimg.com/profile_images/1356333120992149505/-qvakEK7_200x200.jpg"
-          alt=""
+          src={USER_ICON}
+          alt="netflix-profile-icon"
         />
         {isExpand ? (
           <div className="flex flex-col bg-black text-white w-48 py-4 absolute top-22 right-21 z-20">

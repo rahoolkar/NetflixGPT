@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LoginHeader from "./LoginHeader";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -9,17 +8,8 @@ import { useDispatch } from "react-redux";
 import { addUserToken } from "../utils/userTokenSlice";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
-
-const SignupSchema = Yup.object().shape({
-  fullName: Yup.string().min(5, "Too Short!").max(20, "Too Long!"),
-  password: Yup.string()
-    .min(8, "Too Short!")
-    .max(20, "Too Long!")
-    .required("Please provide a valid password"),
-  email: Yup.string()
-    .email("Please provide a valid email")
-    .required("Please enter valid password"),
-});
+import { NETFLIX_BG_IMG } from "../utils/constants";
+import { SignupSchema } from "../utils/validations";
 
 function LoginPage() {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -35,11 +25,7 @@ function LoginPage() {
   return (
     <div>
       <LoginHeader></LoginHeader>
-      <img
-        className="absolute"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-        alt="netflix-bg-img"
-      />
+      <img className="absolute" src={NETFLIX_BG_IMG} alt="netflix-bg-img" />
       <div className="bg-black absolute mx-auto right-0 left-0 w-3/12 my-48 opacity-80 rounded p-8">
         <h2 className="text-3xl font-bold text-white">
           {isSignInForm ? "Sign In" : "Sign Up"}
