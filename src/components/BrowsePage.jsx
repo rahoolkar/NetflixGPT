@@ -1,5 +1,11 @@
+import BrowseHeader from "./BrowseHeader";
+
 function BrowsePage() {
-  return <div>BrowsePage</div>;
+  return (
+    <div className="bg-black">
+      <BrowseHeader></BrowseHeader>
+    </div>
+  );
 }
 
 export default BrowsePage;

@@ -5,6 +5,10 @@ import * as Yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUserToken } from "../utils/userTokenSlice";
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().min(5, "Too Short!").max(20, "Too Long!"),
@@ -24,6 +28,9 @@ function LoginPage() {
   function toggleForm() {
     setIsSignInForm(!isSignInForm);
   }
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -52,13 +59,11 @@ function LoginPage() {
                 .then((userCredential) => {
                   // Signed in
                   const user = userCredential.user;
-                  console.log(user);
-                  console.log("user signed in");
+                  dispatch(addUserToken(user));
+                  navigate("/browse");
                 })
                 .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  setErrorMessage(errorCode + " : " + errorMessage);
+                  setErrorMessage("Invalid email or password");
                 });
             } else {
               createUserWithEmailAndPassword(
@@ -67,10 +72,13 @@ function LoginPage() {
                 values.password
               )
                 .then((userCredential) => {
-                  // Signed up
                   const user = userCredential.user;
-                  console.log(user);
-                  console.log("user signedup");
+                  dispatch(addUserToken(user));
+                  updateProfile(user, {
+                    displayName: values.fullName,
+                  }).then(() => {
+                    navigate("/browse");
+                  });
                 })
                 .catch((error) => {
                   const errorCode = error.code;

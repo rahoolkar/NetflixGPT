@@ -9,11 +9,17 @@ import BrowsePage from "./components/BrowsePage.jsx";
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage></LoginPage>,
-  },
-  {
-    path: "/browse",
-    element: <BrowsePage></BrowsePage>,
+    children: [
+      {
+        path: "/",
+        element: <LoginPage></LoginPage>,
+      },
+      {
+        path: "/browse",
+        element: <BrowsePage></BrowsePage>,
+      },
+    ],
+    element: <App></App>,
   },
 ]);
 
