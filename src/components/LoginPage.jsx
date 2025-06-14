@@ -2,6 +2,9 @@ import { useState } from "react";
 import LoginHeader from "./LoginHeader";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().min(5, "Too Short!").max(20, "Too Long!"),
@@ -16,14 +19,10 @@ const SignupSchema = Yup.object().shape({
 
 function LoginPage() {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   function toggleForm() {
     setIsSignInForm(!isSignInForm);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log("submit button clicked");
   }
 
   return (
@@ -48,7 +47,37 @@ function LoginPage() {
           className="flex flex-col"
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            console.log(values);
+            if (isSignInForm) {
+              signInWithEmailAndPassword(auth, values.email, values.password)
+                .then((userCredential) => {
+                  // Signed in
+                  const user = userCredential.user;
+                  console.log(user);
+                  console.log("user signed in");
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  setErrorMessage(errorCode + " : " + errorMessage);
+                });
+            } else {
+              createUserWithEmailAndPassword(
+                auth,
+                values.email,
+                values.password
+              )
+                .then((userCredential) => {
+                  // Signed up
+                  const user = userCredential.user;
+                  console.log(user);
+                  console.log("user signedup");
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  setErrorMessage(errorCode + " : " + errorMessage);
+                });
+            }
           }}
         >
           {({ errors, touched }) => (
@@ -82,6 +111,9 @@ function LoginPage() {
               {errors.password && touched.password ? (
                 <div className="text-red-600 mt-2">{errors.password}</div>
               ) : null}
+              {errorMessage ? (
+                <div className="text-red-600 mt-2">{errorMessage}</div>
+              ) : null}
               <button
                 type="submit"
                 className="bg-red-700 text-white font-bold w-full mt-4 mb-4 h-11 rounded cursor-pointer opacity-100"
@@ -113,31 +145,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-// {
-//   isSignInForm ? null : (
-//     <input
-//       className="border p-2 mt-4 rounded"
-//       type="text"
-//       placeholder="Full Name"
-//     />
-//   );
-// }
-// {
-/* <input
-  className="border p-2 mt-4 rounded"
-  type="text"
-  placeholder="Email"
-/>
-<input
-  type="password"
-  className="border p-2 mt-4 rounded"
-  placeholder="Password"
-/>
-<button
-  type="submit"
-  className="bg-red-600 mt-4 mb-4 h-11 rounded cursor-pointer"
->
-  {isSignInForm ? "Sign In" : "Sign Up"}
-</button> */
-// }
