@@ -11,8 +11,9 @@ function BrowseHeader() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const user = useSelector((store) => {
-    return store?.userToken?.token.displayName;
+    return store?.userToken?.token?.displayName;
   });
 
   function handleIconClick() {

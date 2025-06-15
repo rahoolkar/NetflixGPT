@@ -6,3 +6,12 @@ export const USER_ICON =
 
 export const NETFLIX_BG_IMG =
   "https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg";
+
+export const API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMTZmMjViZjJkZTA5MGQyMWNmMjE0YzMxMzY2ZGQ1NyIsIm5iZiI6MTc0OTk2NDgxOS45MDEsInN1YiI6IjY4NGU1ODEzMDBlYmI2Y2E3ZjFiZjExMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AKuGN8gKDeXGi3X49yAvT2pDUwman_BEkunuNrbwqZ4",
+  },
+};
