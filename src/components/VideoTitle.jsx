@@ -1,6 +1,6 @@
 function VideoTitle({ title, overview }) {
   return (
-    <div className="pt-[29%] px-[7%] absolute w-screen aspect-video text-white bg-gradient-to-r from-black ">
+    <div className="pt-[20%] px-[7%] absolute w-screen aspect-video text-white bg-gradient-to-r from-black ">
       <div className="group">
         <h2 className="text-5xl font-bold">{title}</h2>
         <h6 className="text-lg w-1/3 mt-6 hidden group-hover:block">

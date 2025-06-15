@@ -12,8 +12,6 @@ function VideoPlay({ id }) {
     return <h1>Shimmer ui</h1>;
   }
 
-  console.log(trailerVideo);
-
   return (
     <div className="w-screen">
       <iframe

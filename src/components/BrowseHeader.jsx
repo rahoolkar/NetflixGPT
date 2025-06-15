@@ -32,7 +32,7 @@ function BrowseHeader() {
   }
 
   return (
-    <div className="absolute w-full bg-gradient-to-b from-black z-20 flex justify-between">
+    <div className="fixed top-0 w-full bg-gradient-to-b from-black z-20 flex justify-between">
       <img className="h-24 mx-20" src={NETFLIX_LOGO_IMG} alt="netflix-logo" />
       <div className="flex flex-col p-4 mr-16">
         <img
