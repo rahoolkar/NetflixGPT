@@ -1,7 +1,6 @@
 import { POSTER_URL_LINK } from "../utils/constants";
 
 function MovieCard({ movieData }) {
-  console.log(movieData);
   const { poster_path } = movieData;
   return (
     <div className="w-[17%] m-2 rounded inline-block">

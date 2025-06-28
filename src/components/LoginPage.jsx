@@ -48,7 +48,7 @@ function LoginPage() {
                   dispatch(addUserToken(user));
                   navigate("/browse");
                 })
-                .catch((error) => {
+                .catch(() => {
                   setErrorMessage("Invalid email or password");
                 });
             } else {
