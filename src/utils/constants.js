@@ -26,3 +26,6 @@ export const POPULAR_MOVIES_API =
 
 export const TOP_RATED_MOVIES_API =
   "https://api.themoviedb.org/3/movie/top_rated?language=en-IN&page=2";
+
+export const OPEN_AI_API_KEY =
+  "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";
